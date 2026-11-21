@@ -1,0 +1,60 @@
+<!doctype html><html lang="id"><meta charset="utf-8"><title>QA lokal · Kantor Sobis</title><style>
+body{margin:0;background:#dfe5e5;color:#162c2b;font:14px 'Segoe UI',sans-serif}header{display:flex;align-items:center;gap:8px;padding:9px 12px;background:#153d38;color:white;flex-wrap:wrap}button{padding:9px 12px;border:1px solid #b6c7c4;border-radius:6px;background:white;color:#173c35;cursor:pointer}header strong{margin-right:auto}#frame-wrap{position:relative;overflow:hidden;margin:0 auto}iframe{border:0;transform-origin:top left;background:white}#report{padding:10px 14px;background:white;margin:0;font:12px/1.5 Consolas,monospace;max-height:160px;overflow:auto;white-space:pre-wrap}#report:empty{display:none}#checks{display:none}
+</style><header><strong>QA ISOLASI · data uji, bukan kantor produksi</strong><button id="desktop">Desktop 1440 × 1000</button><button id="mobile">HP 390 × 844</button><button id="workroom">Lihat kantor</button><button id="run">Jalankan pemeriksaan UI</button></header><pre id="report"></pre><div id="frame-wrap"><iframe id="app" title="Aplikasi yang diuji" src="/"></iframe></div><pre id="checks"></pre>
+<script>
+'use strict';
+const frame=document.querySelector('#app'), report=document.querySelector('#report');
+let width=1440,height=1000,rows=[],errors=[];
+const pause=ms=>new Promise(r=>setTimeout(r,ms));
+const doc=()=>frame.contentDocument, win=()=>frame.contentWindow;
+const $=s=>doc().querySelector(s);
+function size(w,h){width=w;height=h;const scale=Math.min(1,innerWidth/w);frame.style.width=w+'px';frame.style.height=h+'px';frame.style.transform='scale('+scale+')';document.querySelector('#frame-wrap').style.width=(w*scale)+'px';document.querySelector('#frame-wrap').style.height=(h*scale)+'px';}
+window.addEventListener('resize',()=>size(width,height));
+frame.addEventListener('load',()=>{win().addEventListener('error',e=>errors.push(e.message));win().addEventListener('unhandledrejection',e=>errors.push(String(e.reason)));size(width,height);});
+function log(s){report.textContent+=s+'\n';report.scrollTop=report.scrollHeight;}
+function ok(condition,label){if(!condition)throw Error(label);rows.push({passed:true,label});log('PASS '+label);}
+async function wait(test,label='kondisi',timeout=12000){const stop=Date.now()+timeout;while(Date.now()<stop){if(await test())return;await pause(60);}throw Error('Timeout: '+label);}
+async function api(path,opts){const r=await fetch(path,opts);const data=await r.json();if(!r.ok)throw Error(data.detail||r.status);return data;}
+function input(sel,text){const el=$(sel);el.value=text;el.dispatchEvent(new (win().Event)('input',{bubbles:true}));el.dispatchEvent(new (win().Event)('change',{bubbles:true}));}
+async function nav(page){win().location.hash=page;await wait(()=>$('#page-'+page)&&!$('#page-'+page).hidden,page);await pause(100);}
+async function idle(){await wait(async()=>!(await api('/api/state')).busy,'tim selesai');await pause(500);}
+async function send(text){await nav('workroom');await wait(()=>!$('#msg-input').disabled,'composer');input('#msg-input',text);$('#composer').requestSubmit();await wait(()=>$('#msg-input').value==='','pesan terkirim');await idle();}
+document.querySelector('#desktop').onclick=()=>{report.hidden=true;size(1440,1000);};
+document.querySelector('#mobile').onclick=()=>{report.hidden=true;size(390,844);};
+document.querySelector('#workroom').onclick=async()=>{report.hidden=true;await nav('workroom');$('#tab-office').click();};
+document.querySelector('#run').onclick=async()=>{
+ const button=document.querySelector('#run');button.disabled=true;rows=[];errors=[];report.hidden=false;report.textContent='';
+ try{
+  const state=await api('/api/state');if(state.llm_mode!=='mock'||!state.mode_locked)throw Error('QA menolak mode selain simulasi terkunci');
+  await wait(()=>$('#connection-label')?.textContent==='Tersambung','koneksi');
+  ok(true,'API server QA dipaksa mock; tidak memakai database kantor');
+  size(1440,1000);await pause(100);
+  for(const name of ['overview','workroom','agents','tasks','memories','usage','settings']){await nav(name);ok(doc().querySelectorAll('.page:not([hidden])').length===1,'Navigasi '+name);}
+  await nav('workroom');$('#tab-office').click();await pause(200);
+  let scene=win().Office.inspect();ok(scene.visible&&scene.slots.length===8,'Kantor tergambar dan menampilkan delapan slot zona pertama');
+  ok(new Set(scene.slots.map(p=>p.x+','+p.y)).size===8,'Slot avatar tidak bertumpuk');
+  $('#office-next').click();await pause(100);ok(win().Office.pageInfo().page===2,'Paginasi kantor berpindah ke zona dua');$('#office-prev').click();
+  const rc=$('#office-panel').getBoundingClientRect(),cc=$('#chat-panel').getBoundingClientRect();ok(rc.width>0&&cc.width>0&&cc.left>=rc.right-2,'Desktop menampilkan kantor dan chat berdampingan');
+  const c=$('#office-canvas'),pixels=c.getContext('2d').getImageData(0,0,c.width,c.height).data;let colors=new Set();for(let i=0;i<pixels.length;i+=800){if(pixels[i+3])colors.add(pixels[i]+','+pixels[i+1]+','+pixels[i+2]);}ok(colors.size>25,'Kanvas memiliki adegan kantor berwarna, bukan panel kosong');
+  await nav('agents');ok(win().Office.inspect().rafActive===false,'Rendering kantor berhenti di halaman lain');
+  await send('@Riset UJI_LANGSUNG rangkum ide singkat');let s=await api('/api/state');ok(s.tasks.some(t=>t.agent==='Riset'&&t.title.includes('UJI_LANGSUNG')&&t.status==='done'),'Kirim UI -> worker -> tugas langsung selesai');
+  await send('bagi tugas: rencana konten UJI_DELEGASI');s=await api('/api/state');ok(s.tasks.filter(t=>t.title.includes('UJI_DELEGASI')).length>=3,'Delegasi Sobis tercatat sebagai induk dan tugas spesialis');
+  await send('@Admin UJI_GAGAL');s=await api('/api/state');const failed=s.tasks.find(t=>t.title.includes('UJI_GAGAL'));ok(failed?.status==='failed'&&!!failed.error,'Kegagalan terkontrol benar-benar tercatat gagal, bukan selesai');
+  await nav('tasks');input('#task-search','UJI_GAGAL');await pause(80);const card=$('.task-card.failed-card');ok(!!card,'Papan tugas menampilkan kartu gagal');card.click();await wait(()=>$('#detail-dialog').open,'detail tugas');await wait(()=>$('#detail-body').textContent.includes(failed.error),'isi detail tugas');ok($('#detail-body').textContent.includes(failed.error),'Detail tugas menampilkan alasan gagal');$('#detail-dialog').close();input('#task-search','');
+  await send('@Riset ingat: UJI_MEMORI disetujui');await nav('memories');$('[data-status="pending"]').click();await wait(()=>$('[data-action="memory-approve"]'),'usulan memori');$('[data-action="memory-approve"]').click();await wait(async()=>!(await api('/api/state')).pending.length,'setujui');await pause(500);$('[data-status="approved"]').click();ok($('#memory-list').textContent.includes('UJI_MEMORI'),'Usulan disetujui lewat UI dan muncul pada memori aktif');
+  await send('@Riset ingat: UJI_TOLAK jangan dipakai');await nav('memories');$('[data-status="pending"]').click();await wait(()=>$('[data-action="memory-reject"]'),'usulan ditolak');$('[data-action="memory-reject"]').click();await wait(async()=>!(await api('/api/state')).pending.length,'tolak');await pause(400);$('[data-status="rejected"]').click();ok($('#memory-list').textContent.includes('UJI_TOLAK'),'Usulan ditolak lewat UI dan terlihat di riwayat penolakan');
+  await nav('agents');$('#btn-add-agent').click();await wait(()=>$('#agent-dialog').open,'form agen');const uniqueAgent='QAB'+Date.now().toString(36);input('#f-name',uniqueAgent);input('#f-role','Agen hasil formulir UI');$('#agent-form').requestSubmit();await wait(()=>!$('#agent-dialog').open,'simpan agen');input('#agent-search',uniqueAgent);await pause(100);ok(doc().querySelectorAll('.agent-card').length===1,'Tambah agen dan cari nama lewat UI');input('#agent-search','');
+  await nav('settings');ok($('#set-mode').disabled&&$('#mode-locked').hidden===false,'Setelan mengunci LIVE selama QA');input('#set-name','Draf QA belum disimpan');$('#refresh-btn').click();await pause(900);ok($('#set-name').value==='Draf QA belum disimpan','Muat ulang data tidak menghapus formulir yang belum disimpan');
+  await nav('workroom');input('#msg-input','DRAF_YANG_DIPERTAHANKAN');await nav('agents');await nav('workroom');ok($('#msg-input').value==='DRAF_YANG_DIPERTAHANKAN','Draf chat bertahan saat berpindah halaman');
+  size(390,844);await pause(150);$('#tab-office').click();await pause(100);ok(!$('#composer').hidden&&$('#msg-input').getBoundingClientRect().width>0,'HP: composer tetap tersedia pada tab kantor');
+  const b=$('#composer').getBoundingClientRect();ok(b.bottom<=844&&b.top>=0,'HP: kolom perintah berada di dalam layar');
+  ok(doc().documentElement.scrollWidth<=392,'HP: tidak ada overflow horizontal halaman');
+  $('#sidebar-toggle').click();ok($('#sidebar').classList.contains('open')&&$('.app-shell').inert,'HP: menu dibuka dengan fokus terkendali');$('#sidebar-close').click();ok(!$('#sidebar').classList.contains('open')&&!$('.app-shell').inert,'HP: menu ditutup tanpa memerangkap halaman');
+  $('#tab-chat').click();ok($('#msg-input').value==='DRAF_YANG_DIPERTAHANKAN','HP: pindah tab mempertahankan draf');input('#msg-input','');
+  const usages=(await api('/api/usage')).total.pesan;await nav('settings');$('#clear-history').click();await wait(()=>$('#confirm-dialog').open,'dialog hapus');ok($('#confirm-description').textContent.includes('pemakaian'),'Konfirmasi hapus menjelaskan data pemakaian tetap ada');$('#confirm-accept').click();await wait(async()=>(await api('/api/messages')).messages.length===0,'hapus QA');ok((await api('/api/usage')).total.pesan===usages,'Hapus chat QA tidak menghapus ledger pemakaian');
+  await nav('usage');ok($('#usage-summary').textContent.includes('Simulasi'),'Pemakaian membedakan simulasi');
+  ok(errors.length===0,'Tidak ada error JavaScript selama pemeriksaan UI');
+  document.querySelector('#checks').textContent=JSON.stringify({passed:true,count:rows.length,rows,errors},null,2);log('SELESAI: '+rows.length+' pemeriksaan lulus.');
+ }catch(e){rows.push({passed:false,label:e.message});log('FAIL '+e.message);document.querySelector('#checks').textContent=JSON.stringify({passed:false,rows,errors},null,2);}finally{button.disabled=false;}
+};size(width,height);
+</script></html>
