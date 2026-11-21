@@ -1,0 +1,24 @@
+# Konfigurasi lokal dan kredensial
+.env
+.env.*
+!.env.example
+
+# Database dan cadangan lokal
+/data/
+/backups/
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+
+# Lingkungan dan cache pengembangan
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+node_modules/
+*.log
