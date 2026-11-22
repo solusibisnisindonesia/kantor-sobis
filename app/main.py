@@ -11,7 +11,8 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ConfigDict, Field
 
-from . import config, db, engine, llm
+from . import config, db, engine, llm, business
+from . import __version__
 
 STATIC_DIR = config.BASE_DIR / "static"
 
@@ -75,6 +76,7 @@ async def lifespan(app):
 
 
 app = FastAPI(title=config.APP_NAME, lifespan=lifespan)
+app.include_router(business.router)
 app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
 
@@ -101,6 +103,11 @@ def require_idle():
 
 @app.get("/")
 async def index():
+    return FileResponse(str(STATIC_DIR / "business.html"))
+
+
+@app.get('/kantor')
+async def office():
     return FileResponse(str(STATIC_DIR / "index.html"))
 
 
@@ -118,7 +125,7 @@ def _state():
         for task in tasks:
             counts[task['status']] += 1
         return {
-            'app_name': config.APP_NAME, 'tagline': config.APP_TAGLINE, 'version': '1.1.0',
+            'app_name': config.APP_NAME, 'tagline': config.APP_TAGLINE, 'version': __version__,
             'llm_mode': llm.get_mode(), 'llm_setting': 'live' if db.get_setting('llm_mode') == 'live' else 'mock',
             'mode_locked': llm.mode_locked(), 'has_key': bool(llm.get_api_key()),
             'user_name': db.get_setting('user_name', config.USER_NAME_DEFAULT),
@@ -135,7 +142,7 @@ def _state():
 
 @app.get('/api/health')
 async def api_health():
-    return {'ok': True, 'version': '1.1.0'}
+    return {'ok': True, 'version': __version__}
 
 
 @app.get('/api/models')

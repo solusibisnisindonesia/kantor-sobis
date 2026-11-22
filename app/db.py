@@ -12,6 +12,21 @@ _conn = None
 _lock = threading.RLock()
 
 SCHEMA = """
+CREATE TABLE IF NOT EXISTS business_drafts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    profile_json TEXT NOT NULL,
+    brief_json TEXT NOT NULL,
+    approved_version INTEGER,
+    created_at TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS business_versions (
+    draft_id INTEGER NOT NULL REFERENCES business_drafts(id),
+    version INTEGER NOT NULL,
+    content TEXT NOT NULL,
+    mode TEXT NOT NULL,
+    created_at TEXT NOT NULL,
+    PRIMARY KEY (draft_id, version)
+);
 CREATE TABLE IF NOT EXISTS agents (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT UNIQUE NOT NULL,

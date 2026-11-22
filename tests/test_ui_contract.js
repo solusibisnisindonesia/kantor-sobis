@@ -95,7 +95,7 @@ function controller(options = {}) {
     if (!nodes.has(selector)) nodes.set(selector, {value:'',innerHTML:'',textContent:'',hidden:false,disabled:false,dataset:{},style:{},scrollTop:0,scrollHeight:100,clientHeight:100,classList:{add(){},remove(){},toggle(){}},querySelectorAll(){return [];},querySelector(s){return s==='.message-body'?node('stream-body'):null;},insertAdjacentHTML(_,html){this.innerHTML+=html;this.lastElementChild=this;},setAttribute(){},removeAttribute(){},close(){this.open=false;},append(){},remove(){}});
     return nodes.get(selector);
   };
-  const source = fs.readFileSync(path.join(__dirname,'../static/app.js'),'utf8');
+  const source = fs.readFileSync(path.join(__dirname,'../static/app.js'),'utf8').replace(/\r\n/g, '\n');
   const hook = 'window.controllerTest = {state, messageHtml, renderAgents, renderMemories, renderOverview, applyEventData, refreshAll, handleEvent, saveAgent, updateControls};';
   assert.match(source, /\ninit\(\);\n\}\)\(\);\s*$/);
   const window = {SobisUI:UI,matchMedia(){return {matches:true};}};

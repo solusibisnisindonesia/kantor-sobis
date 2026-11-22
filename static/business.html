@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light"><title>Kantor Sobis — Asisten usaha Anda</title>
+<link rel="icon" href="data:,"><link rel="stylesheet" href="/static/business.css">
+<script src="/static/business.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Langsung ke isi</a>
+<header><a class="brand" href="/" aria-label="Beranda Kantor Sobis"><span class="brand-mark" aria-hidden="true">S</span><span>Kantor Sobis<small>ASISTEN USAHA ANDA</small></span></a><span class="local">Satu usaha · Di komputer Anda</span><a class="office-link" href="/kantor#workroom">Kantor &amp; pengaturan AI ↗</a></header>
+<main id="main">
+<div id="notice" class="notice" role="status" aria-live="polite">Menghubungkan ke aplikasi…</div>
+<section class="hero"><div><p class="eyebrow">RUANG TUMBUH USAHA ANDA</p><h1>Usaha Anda, cerita Anda.<br><em>Bantu promosinya di sini.</em></h1><p>Mulai dari satu produk. Sobis membantu menyiapkan naskah yang bisa Anda periksa, perbaiki, dan gunakan.</p></div><aside class="hero-note"><span aria-hidden="true">✦</span><strong>Mulai kecil, selangkah dulu.</strong><p>Tanpa perlu mengatur tim AI.<br>Isi usaha → buat draf → tinjau hasil.</p><span id="mode" class="badge">Memuat mode…</span></aside></section>
+<nav class="steps" aria-label="Langkah membuat promosi"><a href="#profile"><b>01</b> Kenalkan usaha</a><a href="#promotion"><b>02</b> Buat promosi</a><a href="#result"><b>03</b> Tinjau &amp; gunakan</a></nav>
+<div class="workspace">
+<div class="forms">
+<section class="card" id="profile"><div class="section-title"><span class="number">01</span><div><h2>Kenalkan usaha Anda</h2><p>Cukup sekali isi. Bisa diperbarui kapan saja.</p></div></div>
+<form id="profile-form"><fieldset disabled><label>Nama usaha<input name="name" maxlength="100" required placeholder="Contoh: Dapur Bu Rina" autocomplete="organization"></label>
+<label>Produk atau jasa utama<textarea name="product" maxlength="400" required rows="2" placeholder="Contoh: nasi kotak rumahan untuk makan siang dan acara"></textarea></label>
+<label>Siapa calon pembelinya?<input name="audience" maxlength="300" required placeholder="Contoh: karyawan kantor di sekitar Bekasi"></label>
+<div class="field-pair"><label>Gaya bahasa<select name="tone"><option value="ramah">Ramah dan hangat</option><option value="profesional">Rapi dan profesional</option><option value="santai">Santai dan akrab</option></select></label><label>Kontak pemesanan <small>opsional</small><input name="contact" maxlength="200" placeholder="Nomor WA atau akun usaha"></label></div>
+<div class="form-bottom"><span id="profile-status" class="hint">Data tersimpan di komputer ini.</span><button type="submit">Simpan profil usaha</button></div></fieldset></form>
+</section>
+<section class="card" id="promotion"><div class="section-title"><span class="number">02</span><div><h2>Mau promosi apa hari ini?</h2><p>Pilih tempat membagikan dan ceritakan penawarannya.</p></div></div>
+<p id="profile-needed" class="callout">Simpan profil usaha di atas untuk mulai membuat promosi.</p>
+<form id="brief-form"><fieldset disabled><label>Promosi ini untuk<select name="channel"><option value="whatsapp">Pesan WhatsApp</option><option value="instagram">Caption Instagram</option><option value="toko">Deskripsi produk di toko online</option></select></label>
+<label>Apa tujuan Anda?<input name="goal" maxlength="300" required placeholder="Contoh: mengenalkan menu makan siang baru"></label>
+<label>Informasi yang harus disebutkan <small>opsional</small><textarea name="facts" maxlength="1500" rows="3" placeholder="Contoh: Rp25.000 per kotak. Pesan H-1. Antar ke area Bekasi Selatan."></textarea><small>Tulis harga, syarat, atau periode jika ada. Periksa kembali sebelum dibagikan.</small></label>
+<p id="sample-help" class="hint">Mode contoh menyusun teks sederhana dari isian Anda. Gunakan mode AI untuk membuat naskah yang mengikuti tujuan promosi.</p>
+<label id="live-consent" class="consent" hidden><input type="checkbox" name="confirm_live"> Saya setuju memakai API berbayar untuk promosi ini. Profil usaha dan informasi promosi dikirim ke penyedia AI.</label>
+<div class="form-bottom"><span class="hint">Hasil perlu Anda tinjau terlebih dahulu.</span><button id="generate" type="submit">Buat contoh promosi →</button></div></fieldset></form>
+</section>
+</div>
+<div class="results">
+<section class="card result" id="result" aria-labelledby="result-heading"><div class="section-title"><span class="number">03</span><div><h2 id="result-heading">Tinjau &amp; gunakan</h2><p>Keputusan akhir tetap di tangan Anda.</p></div></div>
+<div id="result-empty" class="empty"><span aria-hidden="true">✎</span><h3>Promosi pertama dimulai dari sini</h3><p>Lengkapi profil dan buat draf. Hasilnya akan muncul di sini untuk Anda periksa.</p></div>
+<div id="draft-panel" hidden><div class="draft-meta"><span id="draft-source" class="badge"></span><span id="draft-state" class="badge"></span></div><p id="draft-context" class="hint"></p>
+<label class="editor-label" for="draft-content">Naskah promosi <small>Bisa Anda edit langsung</small></label><textarea id="draft-content" rows="12" maxlength="16000" spellcheck="false"></textarea>
+<p id="draft-hint" class="hint">Periksa harga, klaim, kontak, dan periode penawaran.</p>
+<div class="draft-actions"><button id="save-revision" class="secondary" disabled>Simpan revisi</button><button id="approve">Setujui naskah</button></div>
+<div class="export-actions"><button id="copy" class="secondary" disabled>Salin teks</button><a id="download" class="button secondary" aria-disabled="true">Unduh .txt</a></div>
+<details><summary>Versi sebelumnya &amp; ringkasan arahan</summary><div id="version-list"></div><p id="brief-summary" class="hint"></p></details></div>
+</section>
+<section class="card history"><div class="history-heading"><h2>Promosi tersimpan</h2><button id="refresh" class="text-button" disabled>Perbarui</button></div><p class="hint">Buka kembali untuk melanjutkan pekerjaan.</p><div id="history"><p class="hint">Memuat riwayat…</p></div></section>
+<aside class="privacy"><strong>Ruang kerja pribadi untuk usaha Anda.</strong><p>Profil dan riwayat disimpan lokal. Mode contoh tidak menghubungi AI. Penggunaan AI berbayar bisa diatur melalui <a href="/kantor#settings">Pengaturan AI</a>.</p></aside>
+</div></div>
+<footer><span>Kantor Sobis · SolusiBisnis.com</span><span>Dibuat untuk langkah nyata pelaku UMKM.</span></footer>
+</main><noscript><p class="notice">Aktifkan JavaScript untuk menggunakan Kantor Sobis.</p></noscript>
+</body></html>

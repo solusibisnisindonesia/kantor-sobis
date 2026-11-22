@@ -13,6 +13,7 @@ import time
 import urllib.error
 import urllib.request
 import webbrowser
+from app import __version__
 
 ROOT = Path(__file__).resolve().parent
 
@@ -29,7 +30,7 @@ def health_ok(url):
     try:
         with urllib.request.urlopen(url.rstrip('/') + '/api/health', timeout=1) as response:
             data = json.load(response)
-        return isinstance(data, dict) and data.get('ok') is True and data.get('version') == '1.1.0'
+        return isinstance(data, dict) and data.get('ok') is True and data.get('version') == __version__
     except (OSError, ValueError, urllib.error.URLError):
         return False
 

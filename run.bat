@@ -13,7 +13,7 @@ exit /b
 
 :missing
 echo Lingkungan aplikasi belum lengkap. Tidak ada paket yang diunduh otomatis.
-echo Hubungi pengelola untuk menyiapkan dependensi lokal terlebih dahulu.
+echo Jalankan install.bat satu kali untuk menyiapkan aplikasi.
 echo Panduan penyiapan ada di README.md.
 pause
 exit /b 1
