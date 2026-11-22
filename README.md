@@ -4,7 +4,7 @@ Buat naskah promosi dari informasi usaha Anda, periksa hasilnya, lalu salin atau
 
 **Versi 1.2.0 · Aplikasi lokal SolusiBisnis.com · Gratis dipakai, lisensi MIT**
 
-![Profil usaha dan promosi yang sudah ditinjau — data contoh, bukan usaha pelanggan](docs/tampilan-umkm-v1.2.jpg)
+![Ruang usaha UMKM: profil usaha dan naskah promosi yang sudah ditinjau — data contoh, bukan usaha pelanggan](docs/tampilan-usaha-v1.2.jpg)
 
 ## Mulai di Windows
 
@@ -49,9 +49,27 @@ Jika server dijalankan dengan `LLM_MODE=mock`, Live dikunci sampai server dihent
 
 GitHub publik membagikan kode aplikasi. Setiap orang menjalankan salinannya sendiri. Tidak ada pendaftaran pelanggan, langganan, atau konsol pengelola pelanggan pada versi ini.
 
-## Fitur tambahan
+## Fitur tambahan: konsol kantor
 
-[Konsol kantor](http://127.0.0.1:8765/kantor) tetap menyediakan kantor virtual, tim agen, chat, papan tugas, usulan memori, dan rincian pemakaian. Fitur ini opsional untuk pengguna yang ingin mengatur pekerjaan lebih jauh. Promosi pada beranda memiliki riwayat sendiri; tidak otomatis menjadi tugas pada papan agen.
+[Konsol kantor](http://127.0.0.1:8765/kantor) menyediakan kantor virtual, tim agen, chat, papan tugas, usulan memori, dan rincian pemakaian. Fitur ini opsional untuk pengguna yang ingin mengatur pekerjaan lebih jauh. Promosi pada beranda memiliki riwayat sendiri; tidak otomatis menjadi tugas pada papan agen.
+
+### Tim agen: peran jelas, izin terkendali
+
+Setiap agen punya peran, model, dan batas tindakan sendiri. Anda menentukan siapa yang boleh mengusulkan dan siapa yang boleh bertindak.
+
+![Tim agen dengan peran, model, dan batas tindakan — data contoh](docs/tampilan-tim-agen-v1.2.jpg)
+
+### Ruang kerja: mendelegasikan pekerjaan
+
+Beri arahan dalam percakapan tim. Pesan umum diteruskan ke koordinator, yang membagikannya menjadi tugas. Kantor virtual menampilkan keadaan setiap agen: siap, bekerja, atau gagal.
+
+![Ruang kerja: kantor virtual dan percakapan tim — data contoh](docs/tampilan-ruang-kerja-v1.2.jpg)
+
+### Papan tugas: memantau hasil
+
+Status kartu berasal dari mesin pekerjaan, bukan pemindahan kartu manual. Setiap tugas bergerak dari **Mengantre**, **Dikerjakan**, **Selesai**, hingga **Gagal**, dengan jejak hasil dan alasan kegagalan bila ada.
+
+![Papan tugas dengan empat kolom status — data contoh](docs/tampilan-papan-tugas-v1.2.jpg)
 
 Versi awal konsol dapat dilihat di [tangkapan layar v1.1](docs/tampilan-v1.1.png). Catatan rilis tersedia di [CHANGELOG.md](CHANGELOG.md).
 
