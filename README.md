@@ -2,7 +2,7 @@
 
 Buat naskah promosi dari informasi usaha Anda, periksa hasilnya, lalu salin atau unduh untuk digunakan. Kantor Sobis berbahasa Indonesia dan berjalan di komputer sendiri: **satu instalasi untuk satu usaha, tanpa membuat akun pelanggan**.
 
-**Versi 1.2.0 · Aplikasi lokal SolusiBisnis.com · Portofolio pengembangan produk untuk UMKM**
+**Versi 1.2.0 · Aplikasi lokal SolusiBisnis.com · Gratis dipakai, lisensi MIT**
 
 ![Profil usaha dan promosi yang sudah ditinjau — data contoh, bukan usaha pelanggan](docs/tampilan-umkm-v1.2.jpg)
 
@@ -73,6 +73,10 @@ Tes backend memakai database sementara dan memblokir transport jaringan pada kon
 .\.venv\Scripts\python.exe tests\check.py
 node --test tests/test_ui_contract.js tests/test_office.js
 ```
+
+## Lisensi
+
+MIT. Silakan pakai, ubah, dan bagikan ulang kode ini, termasuk untuk usaha Anda sendiri. Ketentuan lengkap ada di [LICENSE](LICENSE).
 
 ## Batas versi ini
 
