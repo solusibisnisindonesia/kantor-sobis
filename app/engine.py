@@ -1,4 +1,4 @@
-"""Mesin utama Kantor Sobis: router pesan, orkestrator Sobis, konteks ruang, papan tugas."""
+"""Mesin utama Rekan Kantor: router pesan, orkestrator Sobis, konteks ruang, papan tugas."""
 import asyncio
 import json
 import re

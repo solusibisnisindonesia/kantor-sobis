@@ -1,4 +1,4 @@
-"""Klien LLM Kantor Sobis — OpenRouter + mode simulasi (mock)."""
+"""Klien LLM Rekan Kantor — OpenRouter + mode simulasi (mock)."""
 import asyncio
 import json
 import os
@@ -52,7 +52,7 @@ async def stream_chat(model, messages, tools=None):
         "Authorization": f"Bearer {key}",
         "Content-Type": "application/json",
         "HTTP-Referer": "http://localhost:8765",
-        "X-Title": "Kantor Sobis",
+        "X-Title": "Rekan Kantor",
     }
 
     tool_calls = {}
@@ -159,7 +159,7 @@ async def _mock_stream(model, messages, tools):
         calls = [{"id": "call_1", "name": "create_agent", "arguments": {
             "name": nm,
             "role": role,
-            "system_prompt": f"Kamu adalah {nm}, agen tim Kantor Sobis. Peran: {role}. Jawab ringkas dalam Bahasa Indonesia.",
+            "system_prompt": f"Kamu adalah {nm}, agen tim Rekan Kantor. Peran: {role}. Jawab ringkas dalam Bahasa Indonesia.",
         }}]
     elif not used_tools and "usulkan_memori" in names and any(k in low for k in ("ingat", "memori", "catat")):
         pre_text = "Oke, saya usulkan ini masuk memori proyek dulu ya. "

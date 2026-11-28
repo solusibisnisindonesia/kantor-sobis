@@ -1,7 +1,7 @@
 @echo off
 setlocal
 cd /d "%~dp0"
-title Kantor Sobis - SolusiBisnis.com
+title Rekan Kantor - SolusiBisnis.com
 
 if not exist ".venv\Scripts\python.exe" goto missing
 ".venv\Scripts\python.exe" -c "import fastapi, uvicorn, httpx, dotenv" >nul 2>nul

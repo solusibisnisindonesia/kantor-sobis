@@ -1,4 +1,4 @@
-"""Tes otomatis Kantor Sobis — mode simulasi (tanpa biaya API).
+"""Tes otomatis Rekan Kantor — mode simulasi (tanpa biaya API).
 
 Jalankan dari folder kantor-sobis:
     .venv\\Scripts\\python.exe tests\\check.py

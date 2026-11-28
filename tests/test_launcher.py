@@ -63,9 +63,9 @@ class LauncherTests(unittest.TestCase):
     def test_health_requires_expected_application_object_without_network(self):
         m = self.load()
         for payload, expected in (
-            ('{"ok":true,"version":"1.2.0"}', True),
+            ('{"ok":true,"version":"1.3.0"}', True),
             ('{"ok":true,"version":"other"}', False),
-            ('{"ok":false,"version":"1.2.0"}', False),
+            ('{"ok":false,"version":"1.3.0"}', False),
             ('{"ok":true,"version":"1.1.0"}', False),
             ('{}', False),
         ):

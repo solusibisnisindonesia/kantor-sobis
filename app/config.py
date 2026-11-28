@@ -1,4 +1,4 @@
-"""Konfigurasi dasar Kantor Sobis."""
+"""Konfigurasi dasar Rekan Kantor."""
 import os
 from pathlib import Path
 
@@ -16,7 +16,7 @@ DB_PATH = os.environ.get("KANTOR_SOBIS_DB", str(DATA_DIR / "kantor_sobis.db"))
 PORT = int(os.environ.get("PORT", "8765"))
 HOST = os.environ.get("HOST", "127.0.0.1")
 
-APP_NAME = "Kantor Sobis"
+APP_NAME = "Rekan Kantor"
 APP_TAGLINE = "by SolusiBisnis.com"
 
 DEFAULT_MODEL = "openai/gpt-4.1-mini"

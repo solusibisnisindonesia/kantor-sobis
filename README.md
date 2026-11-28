@@ -1,10 +1,10 @@
-# Kantor Sobis — Asisten usaha untuk UMKM
+# Rekan Kantor — Asisten usaha untuk UMKM
 
-Buat naskah promosi dari informasi usaha Anda, periksa hasilnya, lalu salin atau unduh untuk digunakan. Kantor Sobis berbahasa Indonesia dan berjalan di komputer sendiri: **satu instalasi untuk satu usaha, tanpa membuat akun pelanggan**.
+Buat naskah promosi dari informasi usaha Anda, periksa hasilnya, lalu salin atau unduh untuk digunakan. Rekan Kantor berbahasa Indonesia dan berjalan di komputer sendiri: **satu instalasi untuk satu usaha, tanpa membuat akun pelanggan**.
 
-**Versi 1.2.0 · Aplikasi lokal SolusiBisnis.com · Gratis dipakai, lisensi MIT**
+**Versi 1.3.0 · Aplikasi lokal SolusiBisnis.com · Gratis dipakai, lisensi MIT**
 
-![Ruang usaha UMKM: profil usaha dan naskah promosi yang sudah ditinjau — data contoh, bukan usaha pelanggan](docs/tampilan-usaha-v1.2.jpg)
+![Ruang usaha UMKM: profil usaha dan naskah promosi yang sudah ditinjau — data contoh, bukan usaha pelanggan](docs/tampilan-usaha-v1.3.jpg)
 
 ## Mulai di Windows
 
@@ -57,19 +57,19 @@ GitHub publik membagikan kode aplikasi. Setiap orang menjalankan salinannya send
 
 Setiap agen punya peran, model, dan batas tindakan sendiri. Anda menentukan siapa yang boleh mengusulkan dan siapa yang boleh bertindak.
 
-![Tim agen dengan peran, model, dan batas tindakan — data contoh](docs/tampilan-tim-agen-v1.2.jpg)
+![Tim agen dengan peran, model, dan batas tindakan — data contoh](docs/tampilan-tim-agen-v1.3.jpg)
 
 ### Ruang kerja: mendelegasikan pekerjaan
 
 Beri arahan dalam percakapan tim. Pesan umum diteruskan ke koordinator, yang membagikannya menjadi tugas. Kantor virtual menampilkan keadaan setiap agen: siap, bekerja, atau gagal.
 
-![Ruang kerja: kantor virtual dan percakapan tim — data contoh](docs/tampilan-ruang-kerja-v1.2.jpg)
+![Ruang kerja: kantor virtual dan percakapan tim — data contoh](docs/tampilan-ruang-kerja-v1.3.jpg)
 
 ### Papan tugas: memantau hasil
 
 Status kartu berasal dari mesin pekerjaan, bukan pemindahan kartu manual. Setiap tugas bergerak dari **Mengantre**, **Dikerjakan**, **Selesai**, hingga **Gagal**, dengan jejak hasil dan alasan kegagalan bila ada.
 
-![Papan tugas dengan empat kolom status — data contoh](docs/tampilan-papan-tugas-v1.2.jpg)
+![Papan tugas dengan empat kolom status — data contoh](docs/tampilan-papan-tugas-v1.3.jpg)
 
 Versi awal konsol dapat dilihat di [tangkapan layar v1.1](docs/tampilan-v1.1.png). Catatan rilis tersedia di [CHANGELOG.md](CHANGELOG.md).
 

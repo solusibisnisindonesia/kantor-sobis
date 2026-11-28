@@ -1,4 +1,4 @@
-"""Server Kantor Sobis — FastAPI + SSE."""
+"""Server Rekan Kantor — FastAPI + SSE."""
 import asyncio
 import json
 from contextlib import asynccontextmanager
@@ -55,7 +55,7 @@ async def lifespan(app):
     db.init()
     db.recover_tasks()
     engine.room = engine.Room()
-    print(f"[Kantor Sobis] Mode: {llm.get_mode()} | Data: {config.DATA_DIR}")
+    print(f"[Rekan Kantor] Mode: {llm.get_mode()} | Data: {config.DATA_DIR}")
     try:
         yield
     finally:

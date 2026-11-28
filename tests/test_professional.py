@@ -203,7 +203,7 @@ class ProfessionalTests(unittest.IsolatedAsyncioTestCase):
             self.assertIn(field, response.json())
         await self.send('@Admin hello')
         snapshot = (await self.client.get('/api/state')).json()
-        self.assertEqual(snapshot['version'], '1.2.0')
+        self.assertEqual(snapshot['version'], '1.3.0')
         self.assertEqual(snapshot['llm_setting'], 'mock')
         self.assertTrue(snapshot['mode_locked'])
         self.assertEqual(snapshot['queue'], 0)

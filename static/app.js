@@ -1,4 +1,4 @@
-/* Kantor Sobis · application controller. All server data is untrusted. */
+/* Rekan Kantor · application controller. All server data is untrusted. */
 (function () {
 'use strict';
 const $ = (selector, root = document) => root.querySelector(selector);
@@ -91,7 +91,7 @@ function setPage(page, focus = false) {
   });
   $('#page-title').textContent = PAGES[page];
   $('#breadcrumb-page').textContent = PAGES[page];
-  document.title = PAGES[page] + ' · Kantor Sobis · SolusiBisnis.com';
+  document.title = PAGES[page] + ' · Rekan Kantor · SolusiBisnis.com';
   document.body.classList.toggle('workroom-active', page === 'workroom');
   closeNav(false);
   if (changed) $('#main-content').scrollTop = 0;

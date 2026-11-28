@@ -1,4 +1,4 @@
-/* Kantor Sobis · a data-driven, asset-free isometric office. */
+/* Rekan Kantor · a data-driven, asset-free isometric office. */
 "use strict";
 
 window.Office = (function () {

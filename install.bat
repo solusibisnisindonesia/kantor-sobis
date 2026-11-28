@@ -1,8 +1,8 @@
 @echo off
 setlocal
 cd /d "%~dp0"
-title Pasang Kantor Sobis
-echo Kantor Sobis - persiapan pertama di Windows
+title Pasang Rekan Kantor
+echo Rekan Kantor - persiapan pertama di Windows
 echo Memerlukan Python 3.12 atau lebih baru dan koneksi internet.
 echo Paket aplikasi akan diunduh dari Python Package Index.
 echo Setelah selesai, gunakan run.bat untuk membuka aplikasi.

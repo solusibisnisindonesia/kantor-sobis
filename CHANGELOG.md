@@ -1,4 +1,10 @@
-# Perubahan Kantor Sobis
+# Perubahan Rekan Kantor
+
+## 1.3.0 — Nama baru: Rekan Kantor
+
+- Aplikasi kini bernama **Rekan Kantor** (sebelumnya Kantor Sobis). Cara pakai tidak berubah; profil usaha dan promosi yang tersimpan tetap terbaca.
+- Koordinator di dalam aplikasi tetap bernama **Sobis**, dan mereknya tetap **SolusiBisnis.com**.
+- Perbaikan tata letak beranda: urutan langkah kini benar 01 → 02 → 03 pada layar lebar (sebelumnya kartu 03 tampil di samping 01, sehingga nomor terbaca melompat).
 
 ## 1.2.0 — Ruang usaha untuk pemula UMKM
 

@@ -1,4 +1,4 @@
-"""Start the local Kantor Sobis server, then open the UI after readiness.
+"""Start the local Rekan Kantor server, then open the UI after readiness.
 
 No package installation, key probing or paid requests take place here.
 """
@@ -54,12 +54,12 @@ def run(open_browser=True):
         if not health_ok(url):
             print(f'Port {port} dipakai proses lain atau versi lama. Tutup server lama terlebih dahulu.')
             return 1
-        print(f'Kantor Sobis sudah berjalan: {url}')
+        print(f'Rekan Kantor sudah berjalan: {url}')
         if open_browser:
             webbrowser.open(url)
         return 0
     command = [sys.executable, '-m', 'uvicorn', 'app.main:app', '--host', host, '--port', str(port)]
-    print(f'Menyiapkan Kantor Sobis di {url} ...', flush=True)
+    print(f'Menyiapkan Rekan Kantor di {url} ...', flush=True)
     process = subprocess.Popen(command, cwd=str(ROOT))
     try:
         if not wait_ready(url, process):
@@ -83,7 +83,7 @@ def run(open_browser=True):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Jalankan Kantor Sobis lokal')
+    parser = argparse.ArgumentParser(description='Jalankan Rekan Kantor lokal')
     parser.add_argument('--no-browser', action='store_true', help='Jalankan server tanpa membuka browser')
     args = parser.parse_args()
     raise SystemExit(run(open_browser=not args.no_browser))

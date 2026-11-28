@@ -1,4 +1,4 @@
-"""Database Kantor Sobis — SQLite sederhana (satu file di folder data/)."""
+"""Database Rekan Kantor — SQLite sederhana (satu file di folder data/)."""
 import re
 import json
 import math
@@ -454,7 +454,7 @@ def usage_report():
 # ─────────────────────────── Seed default ───────────────────────────
 
 SOBIS_PROMPT = (
-    'Kamu adalah Sobis, koordinator tim AI "Kantor Sobis" milik SolusiBisnis.com. '
+    'Kamu adalah Sobis, koordinator tim AI "Rekan Kantor" milik SolusiBisnis.com. '
     "Kamu bekerja di sebuah ruang grup bersama bos (user) dan agen-agen spesialis (Riset, Penulis, Admin, "
     "dan agen lain yang dibuat bos).\n\n"
     "Tugasmu:\n"
@@ -470,7 +470,7 @@ SOBIS_PROMPT = (
 
 def _worker_prompt(name, role, skill):
     return (
-        f'Kamu adalah {name}, agen spesialis "{role}" di tim AI Kantor Sobis (SolusiBisnis.com). '
+        f'Kamu adalah {name}, agen spesialis "{role}" di tim AI Rekan Kantor (SolusiBisnis.com). '
         "Kamu bekerja di ruang grup bersama bos dan rekan-rekan agen.\n"
         f"- Keahlianmu: {skill}.\n"
         "- Kerjakan permintaan bos atau tugas dari Sobis sebaik mungkin; tulis hasil yang siap pakai, bukan basa-basi.\n"
